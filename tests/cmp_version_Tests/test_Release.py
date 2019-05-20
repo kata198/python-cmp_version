@@ -80,6 +80,7 @@ class TestRelease(object):
         assert cmpFunc('1.0-2.0-3.0', '1.0-2.0') > 0 , 'Expected "1.0-2.0-3.0" to be greater than "1.0-2.0"'
         assert cmpFunc('1.0-2.0', '1.0-2.0-3.0') < 0 , 'Expected "1.0-2.0" to be less than "1.0-2.0-3.0"'
         assert cmpFunc('1.0-2.0', '1.0-2.0-0-0-0') == 0 , 'Expected "1.0-2.0" to be equal to "1.0-2.0-0-0-0"'
+        assert cmpFunc('1.0-1.el7_6', '1.0-1.1.el7_6') < 0, 'Expected "1.0-1.el7_6" to be less than "1.0-1.1.el7_6"'
 
 
 if __name__ == '__main__':

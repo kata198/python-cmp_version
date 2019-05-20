@@ -212,10 +212,12 @@ def _cmp_version_internal(version1, version2, versionIdxNum=0):
                 (alpha1, numeric1) = try1[j]
                 (alpha2, numeric2) = try2[j]
 
-                resAlpha = cmp(alpha1.lower(), alpha2.lower())
-                if resAlpha != 0:
-                    # Alpha blocks are not the same, we are done.
-                    return resAlpha
+                # Some of alpha is empty string, so don't compare them
+                if alpha1 and alpha2:
+                    resAlpha = cmp(alpha1.lower(), alpha2.lower())
+                    if resAlpha != 0:
+                        # Alpha blocks are not the same, we are done.
+                        return resAlpha
 
                 # Alpha are same or empty, so compare digits
                 resNumeric = 0
@@ -227,12 +229,12 @@ def _cmp_version_internal(version1, version2, versionIdxNum=0):
                             # Difference in numbers, return cmp result.
                             return resNumeric
                     else:
-                        # Only digits in version1's block, thus it is greater
+                        # Only digits in version1's block, thus version1 is greater
                         return 1
                 else:
                     if numeric2:
-                        # Only digits in version2's block, thus it is greater
-                        return 1
+                        # Only digits in version2's block, thus version1 is smaller
+                        return -1
 
             if try2Len > try1Len:
                 # All in version1's block match version2's block
